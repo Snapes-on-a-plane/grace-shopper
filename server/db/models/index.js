@@ -1,6 +1,7 @@
 const User = require('./user')
-const Order = require('./order');
+const Order = require('./order')
 const Bubble = require('./bubble')
+
 
 //Initial: S.C. Comment: Associations
 Order.hasMany(Bubble);
