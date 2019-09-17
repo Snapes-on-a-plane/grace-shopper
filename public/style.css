@@ -19,3 +19,13 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.all_bubble_styling {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.all_bubble_styling * {
+  margin-bottom: 30px;
+}
