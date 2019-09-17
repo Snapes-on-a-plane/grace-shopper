@@ -9,7 +9,7 @@ const Order = db.define('order', {
     defaultValue: 0.0
   },
   items: {
-    type: Sequelize.ARRAY()
+    type: Sequelize.ARRAY(Sequelize.TEXT)
   }
 })
 
