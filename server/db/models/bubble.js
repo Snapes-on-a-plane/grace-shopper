@@ -35,9 +35,9 @@ const Bubble = db.define('bubble', {
     type: Sequelize.BOOLEAN,
     defaultValue: true
   },
-  types: {
-    type: Sequelize.ARRAY(Sequelize.TEXT)
-  },
+  // types: {
+  //   type: Sequelize.ARRAY(Sequelize.TEXT)
+  // },
   user_ratings_total: {
     type: Sequelize.INTEGER
   }
