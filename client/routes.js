@@ -28,9 +28,9 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         {/* NL: Modifying routes to reflect our website schema */}
-        <Route path="/" component={HomePage} />
+        <Route exact path="/" component={HomePage} />
         <Route path="/bubbles" component={AllBubble} />
-        <Route exact path="/order" component={Order} />
+        <Route path="/order" component={Order} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -51,7 +51,7 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !state.user.id
   }
 }
 

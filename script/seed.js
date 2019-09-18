@@ -89,44 +89,44 @@ const bubbles = [
 
 const orders = [
   {
-    name: 'Pearl Milk Tea',
-    totalPrice: '5.50'
+    itemName: 'Pearl Milk Tea',
+    itemPrice: '5.50'
   },
   {
-    name: 'Bubble Milk Tea',
-    totalPrice: '5.75'
+    itemName: 'Bubble Milk Tea',
+    itemPrice: '5.75'
   },
   {
-    name: 'Black Pearl Milk Tea',
-    totalPrice: '5.50'
+    itemName: 'Black Pearl Milk Tea',
+    itemPrice: '5.50'
   },
   {
-    name: 'Foam Red Tea',
-    totalPrice: '6.00'
+    itemName: 'Foam Red Tea',
+    itemPrice: '6.00'
   },
   {
-    name: 'Foam Milk Tea',
-    totalPrice: '5.75'
+    itemName: 'Foam Milk Tea',
+    itemPrice: '5.75'
   },
   {
-    name: 'Tea Pearl',
-    totalPrice: '5.25'
+    itemName: 'Tea Pearl',
+    itemPrice: '5.25'
   },
   {
-    name: 'Brown Sugar Milk Tea',
-    totalPrice: '6.50'
+    itemName: 'Brown Sugar Milk Tea',
+    itemPrice: '6.50'
   },
   {
-    name: 'Mango Milk Tea',
-    totalPrice: '5.75'
+    itemName: 'Mango Milk Tea',
+    itemPrice: '5.75'
   },
   {
-    name: 'Green Milk Tea',
-    totalPrice: '6.00'
+    itemName: 'Green Milk Tea',
+    itemPrice: '6.00'
   },
   {
-    name: 'Taro Milk Tea',
-    totalPrice: '5.50'
+    itemName: 'Taro Milk Tea',
+    itemPrice: '5.50'
   }
 ]
 

@@ -19,20 +19,6 @@ class Order extends React.Component {
     console.log('component did update')
   }
 
-  // checking= (e) => {
-  //   console.log(this.state.price)
-  //   // if(e.target.checked) {
-  //   //   const value = e.target.value
-  //   //   console.log('-----',e.target.quantity)
-  //   //   this.setState({price: this.state.price + Number(value), orderItem: [...this.state.orderItem, e.target.name]});
-  //   // } else if(!e.target.checked && this.state.orderItem.includes(e.target.name)) {
-  //   //   const value = e.target.value
-  //   //   const index = this.state.orderItem.indexOf(e.target.name);
-  //   //   this.state.orderItem.splice(index, 1);
-  //   //   this.setState({price: this.state.price - Number(value)})
-  //   // }
-  // };
-
   quantityChange = (e, price) => {
     const qty = e.target.value
     let temp = this.state.tempQty
@@ -87,7 +73,7 @@ class Order extends React.Component {
                     return (
                       <tr key={order.id}>
                         <td>
-                          {order.name}
+                          {order.itemName}
                           <img
                             style={{
                               width: '30px',
@@ -97,11 +83,11 @@ class Order extends React.Component {
                             src="./images/cuteBubble.png"
                           />
                         </td>
-                        <td>${order.totalPrice}</td>
+                        <td>${order.itemPrice}</td>
                         <td>
                           <input
                             onBlur={e =>
-                              this.quantityChange(e, order.totalPrice)
+                              this.quantityChange(e, order.itemPrice)
                             }
                             onFocus={this.trackQty}
                             style={{
@@ -109,7 +95,7 @@ class Order extends React.Component {
                               height: '40px',
                               fontSize: '20px'
                             }}
-                            name={order.name}
+                            name={order.itemName}
                             type="number"
                             max="10"
                             min="0"
