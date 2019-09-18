@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Bubble} = require('../server/db/models')
+const {User, Bubble, Order} = require('../server/db/models')
 
 const bubbles = [
   {
@@ -87,6 +87,49 @@ const bubbles = [
   }
 ]
 
+const orders = [
+  {
+    name: 'Pearl Milk Tea',
+    totalPrice: '5.50'
+  },
+  {
+    name: 'Bubble Milk Tea',
+    totalPrice: '5.75'
+  },
+  {
+    name: 'Black Pearl Milk Tea',
+    totalPrice: '5.50'
+  },
+  {
+    name: 'Foam Red Tea',
+    totalPrice: '6.00'
+  },
+  {
+    name: 'Foam Milk Tea',
+    totalPrice: '5.75'
+  },
+  {
+    name: 'Tea Pearl',
+    totalPrice: '5.25'
+  },
+  {
+    name: 'Brown Sugar Milk Tea',
+    totalPrice: '6.50'
+  },
+  {
+    name: 'Mango Milk Tea',
+    totalPrice: '5.75'
+  },
+  {
+    name: 'Green Milk Tea',
+    totalPrice: '6.00'
+  },
+  {
+    name: 'Taro Milk Tea',
+    totalPrice: '5.50'
+  }
+]
+
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
@@ -95,13 +138,18 @@ async function seed() {
       return Bubble.create(bubble)
     })
   )
+  await Promise.all(
+    orders.map(order => {
+      return Order.create(order)
+    })
+  )
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
-  console.log(`seeded ${users.length} users`)
+  console.log(`seeded {users.length} users`)
   console.log(`seeded successfully`)
 }
 

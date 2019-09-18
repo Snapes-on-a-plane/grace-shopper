@@ -8,8 +8,8 @@ const Order = db.define('order', {
     type: Sequelize.FLOAT,
     defaultValue: 0.0
   },
-  items: {
-    type: Sequelize.ARRAY()
+  name: {
+    type: Sequelize.STRING
   }
 })
 
