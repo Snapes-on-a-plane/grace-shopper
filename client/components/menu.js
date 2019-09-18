@@ -21,14 +21,13 @@ class Menu extends Component {
   }
   render() {
     //const bubbles = this.state.bubbles
-    return <div>{this.renderMenu()}</div>
+    return <div className="all_bubble_styling">{this.renderMenu()}</div>
   }
 }
 
 //export default Menu
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
     bubbles: state.bubble.bubbles
   }
