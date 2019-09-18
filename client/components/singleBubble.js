@@ -24,17 +24,6 @@ const SingleBubble = props => {
   const classes = useStyles()
 
   return (
-    // <div>
-    //    <Button variant="contained" color="primary">
-    //   Hello Worlds
-    // </Button>
-    //   <img src={bubble.picture}></img>
-    //   <h3>{bubble.name}</h3>
-    //   <p>{bubble.description}</p>
-    //   <p>${bubble.price}</p>
-    //   <p>{bubble.rating}</p>
-    //   <p> total ratings: {bubble.user_ratings_total}</p>
-    // </div>
     <Card className={classes.card}>
       <CardActionArea>
         <CardMedia
