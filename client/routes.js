@@ -9,7 +9,8 @@ import {
   HomePage,
   PageNotFound,
   AllBubble,
-  Order
+  Order,
+  Menu
 } from './components'
 import {me} from './store'
 
@@ -29,6 +30,7 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         {/* NL: Modifying routes to reflect our website schema */}
         <Route exact path="/" component={HomePage} />
+        <Route path="/menu" component={Menu} />
         <Route path="/bubbles" component={AllBubble} />
         <Route path="/order" component={Order} />
         {isLoggedIn && (

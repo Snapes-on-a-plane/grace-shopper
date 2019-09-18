@@ -33,6 +33,8 @@ const bubbles = [
     name: 'Yumyum',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+    picture:
+      'http://planomagazine.com/wp-content/uploads/2018/10/Vivi-Bubble-Tea-Pic-Vivi-Plano-Magazine-bear-1.jpg',
     rating: 4.3,
     types: ['cafe', 'food', 'point_of_interest', 'store', 'establishment'],
     user_ratings_total: 121
@@ -41,6 +43,8 @@ const bubbles = [
     name: 'Black Sugar - Boba Bar',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+    picture:
+      'https://www.straitstimes.com/sites/default/files/styles/article_pictrure_780x520_/public/articles/2018/10/09/nz-bubbletea-091019.jpg?itok=24L0kqFn&timestamp=1539070627',
     rating: 4.7,
     types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 169
@@ -49,6 +53,7 @@ const bubbles = [
     name: 'Qualitea',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+    picture: 'https://data.whicdn.com/images/258483196/large.jpg',
     rating: 4.4,
     types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 70
@@ -57,6 +62,7 @@ const bubbles = [
     name: 'Boba Guys Hayes Valley',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+    picture: 'https://pbs.twimg.com/media/DcDN-8zU0AEtdLX.jpg',
     rating: 4.5,
     types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 564
@@ -65,6 +71,8 @@ const bubbles = [
     name: 'Boba Guys Potrero',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+    picture:
+      'https://imbibemagazine.com/wp-content/uploads/2017/06/boba-guys-drinks1-crdt-carolyn-fong.jpg',
     rating: 4.5,
     types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 371
@@ -73,6 +81,8 @@ const bubbles = [
     name: 'Boba Guys NOPA',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+    picture:
+      'https://danielfooddiary.com/wp-content/uploads/2017/12/Bobaguys-1.jpg',
     rating: 4.6,
     types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 117
