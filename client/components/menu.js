@@ -3,80 +3,41 @@ import {runInNewContext} from 'vm'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import SingleBubble from './singleBubble'
-import {displayAllBubbles} from '../store/bubble'
+import {displayAllBubbles} from '../store'
 
 class Menu extends Component {
-  constructor() {
-    super()
-    this.state = {
-      bubbles: {},
-      loading: true
-    }
-  }
   async componentDidMount() {
-    try {
-      // this.props.displayAllBubbles()
-      const {data} = await axios.get('/api/bubbles')
-      this.setState({bubbles: data, loading: false})
-      //return <div>this is a test</div>
-    } catch (error) {
-      next(next)
-    }
-  }
-  renderMenu() {
-    if (this.state.loading) {
-      return <div> This is loading</div>
-    } else {
-      const bubbles = this.state.bubbles
-      return (
-        <div className="all_bubble_styling">
-          {bubbles.map((bubble, ind) => {
-            return <SingleBubble key={ind} bubbleInfo={bubble} />
-          })}
-        </div>
-      )
-    }
+    await this.props.displayAllBubbles()
   }
 
-  // renderMenu() {
-  //   console.log(this.props)
-  //   if(this.props.bubbles){
-  //     return (
-  //       <div>bubbles</div>
-  //     )
-  //   }
-  //   else{
-  //     return <h1>loading</h1>
-  //   }
-  // }
+  renderMenu() {
+    if (this.props.bubbles) {
+      return this.props.bubbles.map((bubble, ind) => (
+        <SingleBubble key={ind} bubbleInfo={bubble} />
+      ))
+    } else {
+      return <h1>loading</h1>
+    }
+  }
   render() {
     //const bubbles = this.state.bubbles
-    return (
-      <div>{this.renderMenu()}</div>
-      // <div>
-      // {bubbles.map((campus) => (
-      //  <div>bubble</div>
-      // ))}
-      // </div>
-    )
+    return <div>{this.renderMenu()}</div>
   }
 }
 
-export default Menu
+//export default Menu
 
-// const mapStateToProps = (state) => {
-//   return {
-//     bubbles: state.bubbles
-//   };
-// };
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+    bubbles: state.bubble.bubbles
+  }
+}
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     displayAllBubbles: () => dispatch(displayAllBubbles())
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    displayAllBubbles: () => dispatch(displayAllBubbles())
+  }
+}
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Menu);
+export default connect(mapStateToProps, mapDispatchToProps)(Menu)

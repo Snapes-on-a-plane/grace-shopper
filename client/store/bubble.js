@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {combineReducers} from 'redux'
 
 const GET_ALL_BUBBLES = 'GET_ALL_BUBBLES'
 
