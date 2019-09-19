@@ -26,7 +26,6 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
   return (
     <div>
-
       <form onSubmit={handleSubmit} name={name}>
         <p>
           <div>
@@ -43,7 +42,7 @@ const AuthForm = props => {
             <input name="password" type="password" />
           </div>
         </p>
-
+      </form>
       <form
         className="authFormStyles"
         //className={classes.container} noValidate autoComplete="off"
@@ -92,7 +91,7 @@ const AuthForm = props => {
             <small>Password</small>
           </label>
           <input name="password" type="password" />
-        </div>  
+        </div>
    <div>
           <button type="submit">{displayName}</button>
         </div>
