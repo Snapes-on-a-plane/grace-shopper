@@ -82,12 +82,27 @@ form div {
   justify-content: center !important;
 }
 
+
+#orderOptions {
+  display: flex;
+  justify-content: space-around;
+  padding: 2%;
+}
+
+#orderOptions #login {
+  flex-basis: 50%;
+}
+
+#orderOptions #signup {
+  flex-basis: 50%;
+=======
 .qtyInput:focus {
   background-color: rgb(160, 204, 231);
 }
 
 .authFormStyles {
   border: 5px solid red;
+
 }
 /* // KL added */
 .form-div {

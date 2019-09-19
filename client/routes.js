@@ -30,7 +30,6 @@ class Routes extends Component {
         {/* NL: Modifying routes to reflect our website schema */}
         <Route exact path="/" component={HomePage} />
         <Route path="/menu" component={Menu} />
-
         {/* KL temp for test */}
         <Route path="/checkout" component={Checkout} />
 

@@ -2,17 +2,14 @@
 
 const Sequelize = require('sequelize')
 const db = require('../db')
+const Order_BubbleTea = require('./Order_BubbleTea')
+const Op = Sequelize.Op
 
 const Order = db.define('order', {
-  itemName: {
-    type: Sequelize.STRING,
-    allowNull: false
+  totalPrice: {
+    type: Sequelize.INTEGER // NL: Price value will be stored in cents, not dollars.
   },
-  itemPrice: {
-    type: Sequelize.FLOAT,
-    allowNull: false
-  },
-  itemQuantity: {
+  totalQuantity: {
     type: Sequelize.INTEGER,
     defaultValue: 0
   }
