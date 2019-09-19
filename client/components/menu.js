@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {runInNewContext} from 'vm'
+import axios from 'axios'
 import {connect} from 'react-redux'
 import SingleBubble from './singleBubble'
 import {displayAllBubbles} from '../store'
