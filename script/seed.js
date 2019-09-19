@@ -1,15 +1,16 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Bubble, Order} = require('../server/db/models')
+const {User, BubbleTea, Order, Order_BubbleTea} = require('../server/db/models')
 
-const bubbles = [
+const bubbleTeas = [
   {
     name: 'i-Tea Kearny',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
     rating: 4.2,
-    types: ['cafe', 'food', 'point_of_interest', 'establishment'],
+    price: 350,
+    //types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 293
   },
 
@@ -18,7 +19,8 @@ const bubbles = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
     rating: 4.1,
-    types: ['cafe', 'food', 'point_of_interest', 'establishment'],
+    price: 450,
+    //types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 230
   },
   {
@@ -26,7 +28,8 @@ const bubbles = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
     rating: 4.4,
-    types: ['cafe', 'food', 'point_of_interest', 'establishment'],
+    price: 400,
+    //types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 1076
   },
   {
@@ -36,7 +39,8 @@ const bubbles = [
     picture:
       'http://planomagazine.com/wp-content/uploads/2018/10/Vivi-Bubble-Tea-Pic-Vivi-Plano-Magazine-bear-1.jpg',
     rating: 4.3,
-    types: ['cafe', 'food', 'point_of_interest', 'store', 'establishment'],
+    price: 380,
+    //types: ['cafe', 'food', 'point_of_interest', 'store', 'establishment'],
     user_ratings_total: 121
   },
   {
@@ -46,7 +50,8 @@ const bubbles = [
     picture:
       'https://www.straitstimes.com/sites/default/files/styles/article_pictrure_780x520_/public/articles/2018/10/09/nz-bubbletea-091019.jpg?itok=24L0kqFn&timestamp=1539070627',
     rating: 4.7,
-    types: ['cafe', 'food', 'point_of_interest', 'establishment'],
+    price: 410,
+    //types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 169
   },
   {
@@ -55,7 +60,8 @@ const bubbles = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
     picture: 'https://data.whicdn.com/images/258483196/large.jpg',
     rating: 4.4,
-    types: ['cafe', 'food', 'point_of_interest', 'establishment'],
+    price: 390,
+    //types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 70
   },
   {
@@ -64,7 +70,8 @@ const bubbles = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
     picture: 'https://pbs.twimg.com/media/DcDN-8zU0AEtdLX.jpg',
     rating: 4.5,
-    types: ['cafe', 'food', 'point_of_interest', 'establishment'],
+    price: 420,
+    //types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 564
   },
   {
@@ -74,7 +81,8 @@ const bubbles = [
     picture:
       'https://imbibemagazine.com/wp-content/uploads/2017/06/boba-guys-drinks1-crdt-carolyn-fong.jpg',
     rating: 4.5,
-    types: ['cafe', 'food', 'point_of_interest', 'establishment'],
+    price: 350,
+    //types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 371
   },
   {
@@ -84,7 +92,8 @@ const bubbles = [
     picture:
       'https://danielfooddiary.com/wp-content/uploads/2017/12/Bobaguys-1.jpg',
     rating: 4.6,
-    types: ['cafe', 'food', 'point_of_interest', 'establishment'],
+    price: 400,
+    //types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 117
   },
   {
@@ -92,51 +101,54 @@ const bubbles = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
     rating: 4.5,
-    types: ['cafe', 'food', 'point_of_interest', 'establishment'],
+    price: 390,
+    //types: ['cafe', 'food', 'point_of_interest', 'establishment'],
     user_ratings_total: 762
   }
 ]
 
 const orders = [
   {
-    itemName: 'Pearl Milk Tea',
-    itemPrice: '5.50'
+    totalQuantity: 0
   },
   {
-    itemName: 'Bubble Milk Tea',
-    itemPrice: '5.75'
+    totalQuantity: 0
   },
   {
-    itemName: 'Black Pearl Milk Tea',
-    itemPrice: '5.50'
+    totalQuantity: 0
+  }
+]
+
+const order_BubbleTea = [
+  {
+    orderId: 1,
+    bubbleTeaId: 2,
+    bubbleTeaQuantity: 2
   },
   {
-    itemName: 'Foam Red Tea',
-    itemPrice: '6.00'
+    orderId: 1,
+    bubbleTeaId: 4,
+    bubbleTeaQuantity: 1
   },
   {
-    itemName: 'Foam Milk Tea',
-    itemPrice: '5.75'
+    orderId: 2,
+    bubbleTeaId: 1,
+    bubbleTeaQuantity: 3
   },
   {
-    itemName: 'Tea Pearl',
-    itemPrice: '5.25'
+    orderId: 2,
+    bubbleTeaId: 3,
+    bubbleTeaQuantity: 2
   },
   {
-    itemName: 'Brown Sugar Milk Tea',
-    itemPrice: '6.50'
+    orderId: 2,
+    bubbleTeaId: 6,
+    bubbleTeaQuantity: 1
   },
   {
-    itemName: 'Mango Milk Tea',
-    itemPrice: '5.75'
-  },
-  {
-    itemName: 'Green Milk Tea',
-    itemPrice: '6.00'
-  },
-  {
-    itemName: 'Taro Milk Tea',
-    itemPrice: '5.50'
+    orderId: 3,
+    bubbleTeaId: 5,
+    bubbleTeaQuantity: 1
   }
 ]
 
@@ -144,13 +156,18 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
   await Promise.all(
-    bubbles.map(bubble => {
-      return Bubble.create(bubble)
+    bubbleTeas.map(bubbleTea => {
+      return BubbleTea.create(bubbleTea)
     })
   )
   await Promise.all(
     orders.map(order => {
       return Order.create(order)
+    })
+  )
+  await Promise.all(
+    order_BubbleTea.map(item => {
+      return Order_BubbleTea.create(item)
     })
   )
 

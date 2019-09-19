@@ -1,12 +1,12 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Bubble = db.define('bubble', {
+const BubbleTea = db.define('bubbleTea', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notNull: true
+      notEmpty: true
     }
   },
   description: {
@@ -18,17 +18,19 @@ const Bubble = db.define('bubble', {
       'https://lh3.googleusercontent.com/p/AF1QipPNqmo65hyB5bh3YuHOCmfZvCXTDUstdDoPwBhd=s1600-w5006'
   },
   price: {
-    type: Sequelize.FLOAT,
-    defaultValue: 3.5,
+    type: Sequelize.INTEGER, // NL: Price value will be stored in cents, not dollars.
     allowNull: false,
     validate: {
-      notNull: true
+      notEmpty: true,
+      min: 0
     }
   },
   rating: {
     type: Sequelize.DECIMAL,
     validate: {
-      isFloat: true
+      isFloat: true,
+      min: 1,
+      max: 5
     }
   },
   isAvailable: {
@@ -43,4 +45,4 @@ const Bubble = db.define('bubble', {
   }
 })
 
-module.exports = Bubble
+module.exports = BubbleTea

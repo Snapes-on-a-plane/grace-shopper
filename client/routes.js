@@ -8,7 +8,6 @@ import {
   UserHome,
   HomePage,
   PageNotFound,
-  AllBubble,
   Order,
   Menu
 } from './components'
@@ -31,7 +30,6 @@ class Routes extends Component {
         {/* NL: Modifying routes to reflect our website schema */}
         <Route exact path="/" component={HomePage} />
         <Route path="/menu" component={Menu} />
-        <Route path="/bubbles" component={AllBubble} />
         <Route path="/order" component={Order} />
         {isLoggedIn && (
           <Switch>

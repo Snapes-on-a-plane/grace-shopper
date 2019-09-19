@@ -1,9 +1,11 @@
 const User = require('./user')
 const Order = require('./order')
-const Bubble = require('./bubble')
+const BubbleTea = require('./bubbleTea')
+const Order_BubbleTea = require('./order_BubbleTea')
 
 //Initial: S.C. Comment: Associations
-Bubble.belongsToMany(Order, {through: 'Order-Bubble'}) // NL: Bubble-To-Order is Many-To-Many association
+BubbleTea.belongsToMany(Order, {through: 'Order_BubbleTea'}) // NL: Order-To-BubbleTea is Many-To-Many association
+Order.belongsToMany(BubbleTea, {through: 'Order_BubbleTea'}) // NL: Order-To-BubbleTea is Many-To-Many association
 
 User.hasMany(Order)
 Order.belongsTo(User)
@@ -11,5 +13,6 @@ Order.belongsTo(User)
 module.exports = {
   User,
   Order,
-  Bubble
+  BubbleTea,
+  Order_BubbleTea
 }
