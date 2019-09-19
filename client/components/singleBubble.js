@@ -19,7 +19,6 @@ const useStyles = makeStyles({
 })
 
 const SingleBubble = props => {
-  console.log(props.bubbleInfo)
   const bubble = props.bubbleInfo
   const classes = useStyles()
 

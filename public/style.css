@@ -78,6 +78,9 @@ form div {
   background-color: #90d0e4;
 }
 
+.authFormStyles {
+  border: 5px solid red;
+}
 /* // KL added */
 .form-div {
   border-radius: 5px;
@@ -121,3 +124,4 @@ select {
   text-align: left;
 }
 /* end of KL */
+
