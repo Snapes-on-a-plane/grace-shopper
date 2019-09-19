@@ -10,7 +10,8 @@ import {
   PageNotFound,
   AllBubble,
   Order,
-  Menu
+  Menu,
+  Checkout
 } from './components'
 import {me} from './store'
 
@@ -33,6 +34,8 @@ class Routes extends Component {
         <Route path="/menu" component={Menu} />
         <Route path="/bubbles" component={AllBubble} />
         <Route path="/order" component={Order} />
+        {/* KL temp for test */}
+        <Route path="/checkout" component={Checkout} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
