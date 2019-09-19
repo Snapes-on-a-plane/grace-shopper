@@ -8,6 +8,8 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import {gotOrderItem, gotQty} from '../store/order'
+import {connect} from 'react-redux'
 
 const useStyles = makeStyles({
   card: {
@@ -17,11 +19,22 @@ const useStyles = makeStyles({
     height: 140
   }
 })
+let qty
 
 const SingleBubble = props => {
-  console.log(props.bubbleInfo)
   const bubble = props.bubbleInfo
   const classes = useStyles()
+
+  const SendData = data => {
+    props.deliverItem(data)
+    props.deliverQty(qty)
+    props.update(data, qty)
+    qty = null
+  }
+
+  const Qty = e => {
+    qty = e.target.value
+  }
 
   return (
     <Card className={classes.card}>
@@ -36,21 +49,40 @@ const SingleBubble = props => {
             {bubble.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            rating:{bubble.rating}
+            <i>Rating:</i> {bubble.rating}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {bubble.description}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            ${bubble.price}
+          <Typography
+            style={{marginTop: '15px'}}
+            variant="body1"
+            color="textSecondary"
+            component="p"
+          >
+            Tea Price: ${bubble.price}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            total ratings:{bubble.user_ratings_total}
+          <Typography
+            style={{marginTop: '4px'}}
+            variant="body1"
+            color="textSecondary"
+            component="p"
+          >
+            Total Ratings:{bubble.user_ratings_total}
+          </Typography>
+          <Typography
+            style={{marginTop: '8px'}}
+            variant="body1"
+            color="textSecondary"
+            component="p"
+          >
+            Please Select Tea Quantity:{' '}
+            <input type="number" onBlur={Qty} className="qtyInput" />
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button onClick={() => SendData(bubble)} size="small" color="primary">
           Add to Order
         </Button>
         <Button size="small" color="primary">
@@ -61,4 +93,11 @@ const SingleBubble = props => {
   )
 }
 
-export default SingleBubble
+const mapDispatchToProps = dispatch => {
+  return {
+    deliverItem: data => dispatch(gotOrderItem(data)),
+    deliverQty: Qty => dispatch(gotQty(Qty))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(SingleBubble)

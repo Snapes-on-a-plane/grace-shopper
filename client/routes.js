@@ -8,7 +8,6 @@ import {
   UserHome,
   HomePage,
   PageNotFound,
-  Order,
   Menu,
   Checkout
 } from './components'
@@ -31,9 +30,9 @@ class Routes extends Component {
         {/* NL: Modifying routes to reflect our website schema */}
         <Route exact path="/" component={HomePage} />
         <Route path="/menu" component={Menu} />
-        <Route path="/order" component={Order} />
         {/* KL temp for test */}
         <Route path="/checkout" component={Checkout} />
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

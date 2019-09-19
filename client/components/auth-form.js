@@ -2,14 +2,31 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+//this is all for the material ui frame work, DO NOT DELETE -lj
+import clsx from 'clsx'
+import {makeStyles} from '@material-ui/core/styles'
+import MenuItem from '@material-ui/core/MenuItem'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1)
+  },
+  input: {
+    display: 'none'
+  }
+}))
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
+  const classes = useStyles()
   const {name, displayName, handleSubmit, error} = props
   return (
     <div>
+
       <form onSubmit={handleSubmit} name={name}>
         <p>
           <div>
@@ -26,11 +43,61 @@ const AuthForm = props => {
             <input name="password" type="password" />
           </div>
         </p>
+
+      <form
+        className="authFormStyles"
+        //className={classes.container} noValidate autoComplete="off"
+        onSubmit={handleSubmit}
+        name={name}
+      >
+        <label htmlFor="email">Email</label>
+        <TextField
+          id="outlined-name"
+          label="ex: joe@gmail.com"
+          className={classes.textField}
+          margin="normal"
+          variant="outlined"
+          name="email"
+          type="text"
+        />
+        <label htmlFor="password" />
+        <TextField
+          id="outlined-name"
+          label="ex: password123"
+          className={classes.textField}
+          margin="normal"
+          variant="outlined"
+          name="password"
+          type="password"
+        />
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          type="submit"
+        >
+          {displayName}
+        </Button>
+        {error && error.response && <div> {error.response.data} </div>}
+      </form>
+      {/* <form onSubmit={handleSubmit} name={name}>
         <div>
+          <label htmlFor="email">
+            <small>Email</small>
+          </label>
+          <input name="email" type="text" />
+        </div>
+        <div>
+          <label htmlFor="password">
+            <small>Password</small>
+          </label>
+          <input name="password" type="password" />
+        </div>  
+   <div>
           <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
-      </form>
+      </form> */}
       <a href="/auth/google">{displayName} with Google</a>
     </div>
   )

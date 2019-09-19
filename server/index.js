@@ -28,6 +28,10 @@ if (process.env.NODE_ENV === 'test') {
  */
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'))
+}
+
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
 
