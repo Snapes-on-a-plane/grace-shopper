@@ -1,5 +1,7 @@
 body {
   font-family: sans-serif;
+  text-align: center;
+  background-color: rgb(235, 168, 107);
 }
 
 a {
@@ -18,4 +20,64 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.all_bubble_styling {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.all_bubble_styling * {
+  margin-bottom: 30px;
+}
+.btn {
+  border-radius: 10px;
+  width: 159px;
+  height: 40px;
+  background: rgb(71, 144, 173);
+  font-size: 20px;
+  color: lightyellow;
+  margin: 17px;
+  cursor: pointer;
+}
+
+.table h1 {
+  color: #ffffff;
+  text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5,
+    -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5,
+    -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+  padding-bottom: 5px;
+}
+
+.table {
+  border: 6px solid #948473;
+  background-color: #ffe3c6;
+  width: 100%;
+  text-align: center;
+  font-size: 25px;
+}
+
+.table th {
+  height: 100px;
+  background-color: rgb(228, 186, 137);
+}
+
+.table td {
+  padding: 5px;
+}
+
+.table td,
+.table th {
+  border: 1px solid #948473;
+}
+
+.total {
+  width: 400px;
+  border: 3px solid lightcyan;
+  background-color: #90d0e4;
+}
+
+.authFormStyles {
+  border: 5px solid red;
 }
