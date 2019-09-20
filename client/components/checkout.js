@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-//const payform = require('payform')
+import payform from 'payform'
 
 class Checkout extends React.Component {
   constructor() {
@@ -15,8 +15,8 @@ class Checkout extends React.Component {
 
   render() {
     const cardNum = '4242424242424242'
-    // const ret = payform.validateCardNumber(cardNum)
-    // const type = payform.parseCardType(cardNum)
+    //const ret = payform.validateCardNumber(cardNum)
+    //const type = payform.parseCardType(cardNum)
     console.log('checkout', ret, type)
 
     const selectedPayment = this.state.selectedPayment

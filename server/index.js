@@ -1,6 +1,11 @@
 const path = require('path')
 const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const helmet = require('helmet')
 const morgan = require('morgan')
+const jwt = require('express-jwt')
+var jwks = require('jwks-rsa')
 const compression = require('compression')
 const session = require('express-session')
 const passport = require('passport')
@@ -44,9 +49,30 @@ passport.deserializeUser(async (id, done) => {
   }
 })
 
+var jwtCheck = jwt({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: 'https://teariffic.auth0.com/.well-known/jwks.json'
+  }),
+  audience: 'https://tranquil-wave-67018.herokuapp.com/api/',
+  issuer: 'https://teariffic.auth0.com/',
+  algorithms: ['RS256']
+})
+
 const createApp = () => {
   // logging middleware
   app.use(morgan('dev'))
+
+  // ================= for security
+  app.use(helmet())
+
+  app.use(bodyParser.json())
+
+  app.use(cors())
+
+  // ====================== for security
 
   // body parsing middleware
   app.use(express.json())
@@ -66,6 +92,8 @@ const createApp = () => {
   )
   app.use(passport.initialize())
   app.use(passport.session())
+
+  app.use(jwtCheck)
 
   // auth and api routes
   app.use('/auth', require('./auth'))
@@ -95,6 +123,10 @@ const createApp = () => {
     console.error(err)
     console.error(err.stack)
     res.status(err.status || 500).send(err.message || 'Internal server error.')
+  })
+
+  app.get('/authorized', function(req, res) {
+    res.send('Secured Resource')
   })
 }
 
