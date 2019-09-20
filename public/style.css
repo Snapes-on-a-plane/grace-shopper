@@ -95,6 +95,13 @@ form div {
 #orderOptions #signup {
   flex-basis: 50%;
 }
+
+.popular {
+  width: 20%;
+  height: 20%;
+  padding: 1%;
+}
+
 .qtyInput:focus {
   background-color: rgb(160, 204, 231);
 }

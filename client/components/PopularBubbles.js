@@ -11,7 +11,7 @@ class PopularBubbles extends React.Component {
   renderPopular() {
     if (this.props.bubbles) {
       return this.props.bubbles.map(bubble => (
-        <img key={bubble.id} src={bubble.picture} />
+        <img key={bubble.id} className="popular" src={bubble.picture} />
       ))
     } else {
       return <h3>Loading....</h3>
@@ -21,7 +21,7 @@ class PopularBubbles extends React.Component {
   render() {
     return (
       <div>
-        <p>These are our most popular bubbles !</p>
+        <h4>These are our most popular bubbles !</h4>
         <div>{this.renderPopular()}</div>
       </div>
     )
@@ -30,7 +30,7 @@ class PopularBubbles extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    bubbles: state.bubble.bubbles
+    bubbles: state.bubble.popularBubbles
   }
 }
 
