@@ -1,4 +1,4 @@
-// Component to display Home page
+// NL: Component to display Home page
 
 import React from 'react'
 import PopularBubbles from './PopularBubbles'
@@ -7,9 +7,9 @@ import {Login, Signup} from './auth-form'
 const HomePage = () => {
   return (
     <div>
-      <h1>Who wants Bubble Teas ?</h1>
+      <h1>Thirsty for Bubble Teas ?</h1>
       <h2>
-        Lots and lots of Bubble Teas available..... Which one is your favorite ?
+        So many Bubble Teas to select from..... Which one is your favorite ?
       </h2>
       <div id="popular">
         <p>

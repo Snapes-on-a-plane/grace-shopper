@@ -4,11 +4,30 @@ const router = require('express').Router()
 const {BubbleTea} = require('../db/models')
 module.exports = router
 
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
+
 // GET api/bubbles
 router.get('/', async (req, res, next) => {
   try {
     const bubbles = await BubbleTea.findAll()
     console.log(bubbles)
+    res.json(bubbles)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// GET api/bubbles/popular
+router.get('/popular', async (req, res, next) => {
+  try {
+    const bubbles = await BubbleTea.findAll({
+      where: {
+        rating: {
+          [Op.gte]: 4.6
+        }
+      }
+    })
     res.json(bubbles)
   } catch (err) {
     next(err)
