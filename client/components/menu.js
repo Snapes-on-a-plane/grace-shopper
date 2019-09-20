@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import SingleBubble from './singleBubble'
-import {displayAllBubbles} from '../store'
+import {displayAllBubbles, gotOrder} from '../store'
 import {Toast} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 class Menu extends Component {
   constructor() {
@@ -14,19 +15,20 @@ class Menu extends Component {
       minusPrice: 0,
       minusQuantity: 0
     }
+    this.OrderCheckout = this.OrderCheckout.bind(this)
   }
   async componentDidMount() {
     await this.props.displayAllBubbles()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('component did update')
-    console.log(prevState, this.state.price)
+    //console.log('component did update')
+    //console.log(prevState, this.state.price)
     if (
       this.state.arrItem.length !== prevState.arrItem.length &&
       this.state.minusPrice > 0
     ) {
-      console.log('hello', this.state)
+      //console.log('hello', this.state)
       let minusp = this.state.minusPrice
       let minusq = this.state.minusQuantity
       this.setState({
@@ -76,7 +78,7 @@ class Menu extends Component {
         minusQuantity
       }
     })
-    console.log(this.state)
+    //console.log(this.state)
   }
 
   calPriceQty = (price, qty) => {
@@ -87,6 +89,21 @@ class Menu extends Component {
         price: this.state.price + curPrice
       })
     }
+  }
+
+  OrderCheckout() {
+    console.log(
+      'menu state',
+      this.state.arrItem,
+      this.state.price,
+      this.state.quantity
+    )
+    this.props.orderCheckout(
+      this.state.arrItem,
+      this.state.price,
+      this.state.quantity
+    )
+    this.setState({arrItem: [], price: 0, quantity: 0})
   }
 
   render() {
@@ -120,7 +137,7 @@ class Menu extends Component {
             : ''}
         </div>
         <div>
-          <form action="/api/order/form" method="post">
+          <div>
             <h1
               style={{
                 color: 'lightyellow',
@@ -139,11 +156,18 @@ class Menu extends Component {
             </div>
             <br />
             <div className="orderBtn">
-              <button className="btn" type="submit">
-                Submit
-              </button>
+              <Link to="/checkout">
+                {' '}
+                <button
+                  className="btn"
+                  type="button"
+                  onClick={this.OrderCheckout}
+                >
+                  Submit
+                </button>
+              </Link>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     )
@@ -162,7 +186,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    displayAllBubbles: () => dispatch(displayAllBubbles())
+    displayAllBubbles: () => dispatch(displayAllBubbles()),
+    orderCheckout: (order, price, qty) => dispatch(gotOrder(order, price, qty))
   }
 }
 
