@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Table} from 'react-bootstrap'
 const payform = require('payform')
 
 class Checkout extends React.Component {
@@ -15,6 +16,10 @@ class Checkout extends React.Component {
     this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
+  componentDidMount() {
+    console.log('component did mount')
+  }
+
   handleCardNumChange(evt) {
     const cardNum = evt.target.value
     const ret = payform.validateCardNumber(cardNum)
@@ -26,7 +31,7 @@ class Checkout extends React.Component {
   }
 
   handleKeyPress(evt) {
-    console.log('kedd', evt.key)
+    //console.log('kedd', evt.key)
     if (
       ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].indexOf(evt.key) < 0
     ) {
@@ -47,9 +52,35 @@ class Checkout extends React.Component {
           <img src="./images/cuteBubble.png" alt="" width="50" height="50px" />
         </h2>
         <div className="form-header">
+          <div className="totalArea">
+            <span>Total Qty: {this.props.qty}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span>Total Price: ${this.props.price}</span>
+          </div>
           <div>
-            <span>Total Qty: 6 </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span>Total Price: $100.99</span>
+            <Table striped bordered hover>
+              <thead className="checkoutTable">
+                <tr>
+                  <th>Item Name</th>
+                  <th>Qty</th>
+                  <th>Unit Price</th>
+                  <th>Total Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.props.arrItem
+                  ? this.props.arrItem.map((el, idx) => {
+                      return (
+                        <tr key={idx}>
+                          <td>{el.info.name}</td>
+                          <td>{el.qty}</td>
+                          <td>{el.info.price}</td>
+                          <td>{el.qty * el.info.price}</td>
+                        </tr>
+                      )
+                    })
+                  : 'empty'}
+              </tbody>
+            </Table>
           </div>
         </div>
         <p>
@@ -165,7 +196,10 @@ const mapStateToProps = state => {
   return {
     existingPayment: state.existingPayment,
     selectedPayment: state.selectedPayment,
-    orderId: state.orderId
+    orderId: state.orderId,
+    arrItem: state.checkout.orderItem,
+    price: state.checkout.totalPrice,
+    qty: state.checkout.totalQty
   }
 }
 

@@ -194,10 +194,17 @@ select {
 .form-header {
   border-radius: 25px;
   padding: 20px;
-  height: 30px;
   background: blanchedalmond;
 }
+.checkoutTable th {
+  width: 130px;
+}
 
+.totalArea {
+  border-bottom: 3px solid black;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
 /* .form-header:first-child{
   flex: 40%;
   background: #73AD21;
