@@ -5,12 +5,14 @@ const cors = require('cors')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const jwt = require('express-jwt')
+var rsaValidation = require('auth0-api-jwt-rsa-validation')
 var jwks = require('jwks-rsa')
 const compression = require('compression')
 const session = require('express-session')
 const passport = require('passport')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
 const db = require('./db')
+var request = require('request')
 const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
@@ -49,16 +51,8 @@ passport.deserializeUser(async (id, done) => {
   }
 })
 
-var jwtCheck = jwt({
-  secret: jwks.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: 'https://teariffic.auth0.com/.well-known/jwks.json'
-  }),
-  audience: 'https://tranquil-wave-67018.herokuapp.com/api/',
-  issuer: 'https://teariffic.auth0.com/',
-  algorithms: ['RS256']
+app.get('/authorized', function(req, res) {
+  res.send('Secured Resource')
 })
 
 const createApp = () => {
@@ -93,7 +87,13 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  app.use(jwtCheck)
+  //app.use(jwtCheck);
+
+  // app.use(function (err, req, res, next) {
+  //   if (err.name === 'UnauthorizedError') {
+  //     res.status(401).json({message:'Missing or invalid token'});
+  //   }
+  // });
 
   // auth and api routes
   app.use('/auth', require('./auth'))
