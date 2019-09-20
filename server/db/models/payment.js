@@ -2,6 +2,13 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Payment = db.define('payment', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
   paymentType: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -29,8 +36,8 @@ const Payment = db.define('payment', {
     allowNull: false,
     validate: {
       notEmpty: true,
-      isAfter: '2000-01-01',
-      isBefore: '2040-01-01'
+      isAfter: '2010-01-01',
+      isBefore: '2030-01-01'
     }
   }
 })
