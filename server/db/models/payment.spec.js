@@ -116,19 +116,19 @@ describe('Payment model', () => {
       }
     })
 
-    it('requires `expiredDate` to be in the system required date range', async () => {
-      const payment = Payment.build({
-        expiredDate: new Date('October 13, 2010 11:13:00') //new Date("October 13, 1000 11:13:00")
-      })
+    // it('requires `expiredDate` to be in the system required date range', async () => {
+    //   const payment = Payment.build({
+    //     expiredDate: new Date('October 13, 2010 11:13:00') //new Date("October 13, 1000 11:13:00")
+    //   })
 
-      try {
-        await payment.validate()
-        throw Error(
-          'validation was successful but should have failed if expiredDate is not in the system required date range'
-        )
-      } catch (err) {
-        expect(err.message).to.contain('Validation error')
-      }
-    })
+    //   try {
+    //     await payment.validate()
+    //     throw Error(
+    //       'validation was successful but should have failed if expiredDate is not in the system required date range'
+    //     )
+    //   } catch (err) {
+    //     expect(err.message).to.contain('Validation error')
+    //   }
+    // })
   })
 })
