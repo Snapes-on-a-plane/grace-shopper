@@ -3,9 +3,23 @@ import axios from 'axios'
 const initialState = {
   existingPayments: [],
   selectedPayment: {},
-  orderId: 0
+  orderId: 0,
+  totalPrice: 0,
+  totalQty: 0,
+  orderItem: []
 }
 
+const GETORDER = 'GETORDER'
+const getOrder = (order, totalPrice, totalQty) => ({
+  type: 'GETORDER',
+  order,
+  totalPrice,
+  totalQty
+})
+export const gotOrder = (order, price, qty) => dispatch => {
+  console.log('order: ', order)
+  dispatch(getOrder(order, price, qty))
+}
 // payment
 const PAYMENT = 'PAYMENT'
 const gotPayments = existingPayments => ({
@@ -53,6 +67,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         existingPayments: action.existingPayments
+      }
+    case GETORDER:
+      return {
+        ...state,
+        orderItem: action.order,
+        totalPrice: action.totalPrice,
+        totalQty: action.totalQty
       }
     default:
       return state
