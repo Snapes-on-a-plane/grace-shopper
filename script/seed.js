@@ -176,7 +176,7 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
-  console.log(`seeded {users.length} users`)
+  console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
 

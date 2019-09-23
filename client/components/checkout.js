@@ -1,9 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import payform from 'payform'
 import {Table} from 'react-bootstrap'
-const payform = require('payform')
 import {getCheckOut} from '../store'
 import {isThisQuarter} from 'date-fns'
+
 
 class Checkout extends React.Component {
   constructor() {

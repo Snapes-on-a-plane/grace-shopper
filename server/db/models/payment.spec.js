@@ -116,6 +116,7 @@ describe('Payment model', () => {
       }
     })
 
+
     it('requires `expiredMonth` to not be an empty string', async () => {
       const payment = Payment.build({
         expiredMonth: ''
@@ -159,6 +160,7 @@ describe('Payment model', () => {
         expect(err.message).to.contain('Validation error')
       }
     })
-    // end year
+    
+
   })
 })

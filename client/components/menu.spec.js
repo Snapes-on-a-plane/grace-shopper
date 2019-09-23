@@ -11,13 +11,13 @@ const adapter = new Adapter()
 enzyme.configure({adapter})
 
 describe('Menu', () => {
-  const bubbleTeas = [{name: 'taro'}, {name: 'matcha'}, {name: 'milk tea'}]
+  const bubbleTeas = [
+    {name: 'taro', price: 3000},
+    {name: 'matcha', price: 4000},
+    {name: 'milk tea', price: 5000}
+  ]
   let menu
   beforeEach(() => {
-    menu = shallow(<Menu />)
-  })
-
-  it('renders a div', () => {
-    expect(menu.find('div'))
+    menu = shallow(<Menu bubbles={bubbleTeas} />)
   })
 })
