@@ -4,9 +4,6 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const helmet = require('helmet')
 const morgan = require('morgan')
-const jwt = require('express-jwt')
-var rsaValidation = require('auth0-api-jwt-rsa-validation')
-var jwks = require('jwks-rsa')
 const compression = require('compression')
 const session = require('express-session')
 const passport = require('passport')
@@ -51,10 +48,6 @@ passport.deserializeUser(async (id, done) => {
   }
 })
 
-app.get('/authorized', function(req, res) {
-  res.send('Secured Resource')
-})
-
 const createApp = () => {
   // logging middleware
   app.use(morgan('dev'))
@@ -87,13 +80,13 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  //app.use(jwtCheck);
-
-  // app.use(function (err, req, res, next) {
-  //   if (err.name === 'UnauthorizedError') {
-  //     res.status(401).json({message:'Missing or invalid token'});
-  //   }
-  // });
+  app.use(
+    require('express-session')({
+      secret: process.env.APP_SECRET,
+      resave: true,
+      saveUninitialized: false
+    })
+  )
 
   // auth and api routes
   app.use('/auth', require('./auth'))
@@ -123,10 +116,6 @@ const createApp = () => {
     console.error(err)
     console.error(err.stack)
     res.status(err.status || 500).send(err.message || 'Internal server error.')
-  })
-
-  app.get('/authorized', function(req, res) {
-    res.send('Secured Resource')
   })
 }
 
