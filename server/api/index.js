@@ -1,6 +1,7 @@
 const router = require('express').Router()
 module.exports = router
 
+//router.use(jwtCheck)
 router.use('/users', require('./users'))
 
 // NL: adding routes to serve up the products data.

@@ -1,11 +1,15 @@
 const path = require('path')
 const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const helmet = require('helmet')
 const morgan = require('morgan')
 const compression = require('compression')
 const session = require('express-session')
 const passport = require('passport')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
 const db = require('./db')
+var request = require('request')
 const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
@@ -48,6 +52,15 @@ const createApp = () => {
   // logging middleware
   app.use(morgan('dev'))
 
+  // ================= for security
+  app.use(helmet())
+
+  app.use(bodyParser.json())
+
+  app.use(cors())
+
+  // ====================== for security
+
   // body parsing middleware
   app.use(express.json())
   app.use(express.urlencoded({extended: true}))
@@ -66,6 +79,14 @@ const createApp = () => {
   )
   app.use(passport.initialize())
   app.use(passport.session())
+
+  app.use(
+    require('express-session')({
+      secret: process.env.APP_SECRET,
+      resave: true,
+      saveUninitialized: false
+    })
+  )
 
   // auth and api routes
   app.use('/auth', require('./auth'))

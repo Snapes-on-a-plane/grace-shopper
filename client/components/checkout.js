@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import payform from 'payform'
 import {Table} from 'react-bootstrap'
-const payform = require('payform')
 
 class Checkout extends React.Component {
   constructor() {
@@ -40,11 +40,13 @@ class Checkout extends React.Component {
   }
 
   render() {
+
     //const cardNum = '4242424242424242'
     // const ret = payform.validateCardNumber(cardNum)
     //const type = payform.parseCardType(cardNum)
     //console.log('checkout', ret, type)
     //const selectedPayment = this.state.selectedPayment
+
     return (
       <div className="form-div">
         <h2>
