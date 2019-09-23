@@ -14,7 +14,7 @@ const Payment = db.define('payment', {
     allowNull: false,
     validate: {
       notEmpty: true,
-      isIn: [['VISA', 'MASTERCARD', 'DISCOVER', 'AmericanExpress']]
+      isIn: [['visa', 'mastercard', 'discover', 'amex']]
     }
   },
   cartNumber: {
@@ -31,13 +31,18 @@ const Payment = db.define('payment', {
       notEmpty: true
     }
   },
-  expiredDate: {
-    type: Sequelize.DATE,
+  expiredMonth: {
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true,
-      isAfter: '2010-01-01',
-      isBefore: '2030-01-01'
+      notEmpty: true
+    }
+  },
+  expiredYear: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
     }
   }
 })

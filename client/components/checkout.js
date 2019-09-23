@@ -2,54 +2,99 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Table} from 'react-bootstrap'
 const payform = require('payform')
+import {getCheckOut} from '../store'
+import {isThisQuarter} from 'date-fns'
 
 class Checkout extends React.Component {
   constructor() {
     super()
     this.state = {
-      existingPayment: [],
-      selectedPayment: {},
-      orderId: 0,
       errorMsg: ''
     }
-    this.handleCardNumChange = this.handleCardNumChange.bind(this)
-    this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.isNumber = this.isNumber.bind(this)
   }
 
-  componentDidMount() {
-    console.log('component did mount')
-  }
+  async handleSubmit(event) {
+    event.preventDefault()
+    // const ret = this.validate(event);
+    // console.log("ret", ret)
+    // if (ret.length  > 0){
+    //   console.log("in h")
+    //    this.setState({errorMsg: ret});
 
-  handleCardNumChange(evt) {
-    const cardNum = evt.target.value
-    const ret = payform.validateCardNumber(cardNum)
-    if (!ret) {
-      this.setState({errorMsg: 'Error: Card number invalid.'})
-    } else {
-      this.setState({errorMsg: ''})
+    //    return false;
+    // }
+
+    const selectedPayment = {
+      name: 'kate',
+      paymentType: 'visa',
+      cartNumber: '232',
+      cvv: '234',
+      expireDate: '2020-10-10'
     }
+    await this.props.getCheckOut({
+      selectedPayment,
+      orderId: this.props.orderId,
+      arrItem: this.props.arrItem,
+      price: this.props.price,
+      qty: this.props.qty
+    })
+    // redirect
   }
 
-  handleKeyPress(evt) {
-    //console.log('kedd', evt.key)
+  validate(evt) {
+    let name = evt.target.name.value
+    let cartNumber = evt.target.cartNumber.value
+    let cvv = evt.target.cvv.value
+    const dateM = evt.target.expiredDateMonth.value
+    const dateY = evt.target.expiredDateYear.value
+
+    if (!name || name.lenght <= 0) {
+      return 'Invalid name.'
+    }
+    //cartNumber = '4242424242424242'
+    if (!payform.validateCardNumber(cartNumber)) {
+      return 'Invalid card number.'
+    }
+    const type = payform.parseCardType(cartNumber)
     if (
-      ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].indexOf(evt.key) < 0
+      ['visa', 'amex', 'mastercard', 'discover'].indexOf(type.toLowerCase() < 0)
     ) {
+      return 'Invalid card type.'
+    }
+    if (!payform.validateCardCVC(cvv)) {
+      return 'Invalid secret Code.'
+    }
+    if (!payform.validateCardExpiry(dateM, dateY)) {
+      return 'Invalid expired date.'
+    }
+    return ''
+  }
+
+  isNumber(evt) {
+    const field = document.getElementById(evt.target.name)
+    const value = field.value
+    evt = evt ? evt : window.event
+    var charCode = evt.which ? evt.which : evt.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      if (field.value === undefined) {
+        field.value = ''
+      } else {
+        field.value = value.substring(0, value.length - 1)
+      }
       return false
     }
+    return true
   }
 
   render() {
-    //const cardNum = '4242424242424242'
-    // const ret = payform.validateCardNumber(cardNum)
-    //const type = payform.parseCardType(cardNum)
-    //console.log('checkout', ret, type)
-    //const selectedPayment = this.state.selectedPayment
     return (
       <div className="form-div">
         <h2>
           Credit Card Checkout:{' '}
           <img src="./images/cuteBubble.png" alt="" width="50" height="50px" />
+          <p className="errorMsg">{this.state.errorMsg}</p>
         </h2>
         <div className="form-header">
           <div className="totalArea">
@@ -83,11 +128,8 @@ class Checkout extends React.Component {
             </Table>
           </div>
         </div>
-        <p>
-          {this.state.errorMsg}
-          <hr />
-        </p>
-        <form>
+
+        <form onSubmit={this.handleSubmit}>
           <label htmlFor="name" text-align="right">
             CardHolder's Name
           </label>
@@ -105,8 +147,7 @@ class Checkout extends React.Component {
             id="cartNumber"
             name="cartNumber"
             placeholder="Credit Card number.."
-            onChange={this.handleCardNumChange}
-            onKeyPress={this.handleKeyPress}
+            onKeyPress={this.isNumber}
           />
           <label htmlFor="cvv">Secret Code(CVV/CVC/CID)</label>
           <input
@@ -114,11 +155,11 @@ class Checkout extends React.Component {
             id="cvv"
             name="cvv"
             placeholder="CVV/CVC/CID number.."
-            onBlur={this.handleCardNumBlur}
+            onKeyPress={this.isNumber}
           />
           <label htmlFor="expiredDate">Expired Date</label>
           <div className="form-div-select">
-            <select>
+            <select name="expiredDateMonth" id="expiredDateMonth">
               <option value="01">January</option>
               <option value="02">February </option>
               <option value="03">March</option>
@@ -134,7 +175,7 @@ class Checkout extends React.Component {
               <option value="11">November</option>
               <option value="12">December</option>
             </select>
-            <select>
+            <select name="expiredDateYear" id="expiredDateYear">
               <option value="10"> 2010</option>
               <option value="11"> 2011</option>
               <option value="12"> 2012</option>
@@ -185,7 +226,7 @@ class Checkout extends React.Component {
           </div>
           <br />
           <input type="submit" value="Place Order" /> &nbsp;&nbsp;
-          <input type="button" value="Cancel" />
+          {/* <input type="button" value="Cancel" /> */}
         </form>
       </div>
     )
@@ -194,7 +235,6 @@ class Checkout extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    existingPayment: state.existingPayment,
     selectedPayment: state.selectedPayment,
     orderId: state.orderId,
     arrItem: state.checkout.orderItem,
@@ -205,7 +245,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCheckOut: selectedPayment => dispatch(getCheckOut(selectedPayment))
+    getCheckOut: order => dispatch(getCheckOut(order))
   }
 }
 
