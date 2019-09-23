@@ -10,13 +10,10 @@ const adapter = new Adapter()
 enzyme.configure({adapter})
 
 describe('SingleBubble', () => {
+  let aTea = {name: 'taro', price: 3500, rating: 4}
   let singleBubble
 
   beforeEach(() => {
-    userHome = shallow(<SingleBubble email="cody@email.com" />)
-  })
-
-  it('renders the email in an h3', () => {
-    expect(userHome.find('h3').text()).to.be.equal('Welcome, cody@email.com')
+    singleBubble = shallow(<SingleBubble bubble={aTea} />)
   })
 })
