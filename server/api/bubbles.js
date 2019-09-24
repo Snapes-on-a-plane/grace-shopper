@@ -36,7 +36,11 @@ router.get('/popular', async (req, res, next) => {
 // GET api/bubbles/:bubbleId
 router.get('/:bubbleId', async (req, res, next) => {
   try {
-    const aBubble = await BubbleTea.findById(req.params.bubbleId)
+    const aBubble = await BubbleTea.findAll({
+      where: {
+        id: req.params.bubbleId
+      }
+    })
     res.json(aBubble)
   } catch (err) {
     next(err)
