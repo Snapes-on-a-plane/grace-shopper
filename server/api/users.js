@@ -7,7 +7,6 @@ router.post('/', (req, res) => {
   req.session.save()
 })
 
-//GET REQUEST FOR /USERS
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -22,9 +21,8 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//GET REQUEST FOR /USERS/ALLUSER
 router.get('/alluser', (req, res) => {
-  if (req.session) {
+  if (req.session.orders) {
     res.json(req.session.orders)
   }
 })
