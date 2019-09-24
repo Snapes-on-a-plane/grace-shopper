@@ -1,12 +1,16 @@
-module.exports = (req, res, next) => {
-  try {
-    const token = req.headers.authorization.split(' ')[1]
-    const decoded = jwt.verify(token, process.env.JWT_KEY)
-    req.userData = decoded
-    next()
-  } catch (error) {
-    return res.status(401).json({
-      message: 'Auth failed'
-    })
+function secureRoutes(req, res, next) {
+  if (req.rawHeaders.includes('Referer')) {
+    return next()
+  } else if (req.user) {
+    const admin = req.user.isAdmin
+    if (!req.rawHeaders.includes('Referer') && admin) {
+      return next()
+    } else {
+      res.redirect('/')
+    }
+  } else {
+    res.redirect('/')
   }
 }
+
+module.exports = secureRoutes

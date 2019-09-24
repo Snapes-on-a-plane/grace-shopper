@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {Table} from 'react-bootstrap'
 import {getCheckOut} from '../store'
 import {isThisQuarter} from 'date-fns'
-
 import {CardElement, injectStripe} from 'react-stripe-elements'
 
 class Checkout extends React.Component {
@@ -14,6 +13,8 @@ class Checkout extends React.Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.submit = this.submit.bind(this)
+    this.isNumber = this.isNumber.bind(this)
+    this.centsToDollars = this.centsToDollars.bind(this)
   }
 
   async submit() {
@@ -40,6 +41,55 @@ class Checkout extends React.Component {
     // redirect
   }
 
+  validate(evt) {
+    let name = evt.target.name.value
+    let cartNumber = evt.target.cartNumber.value
+    let cvv = evt.target.cvv.value
+    const dateM = evt.target.expiredDateMonth.value
+    const dateY = evt.target.expiredDateYear.value
+
+    if (!name || name.lenght <= 0) {
+      return 'Invalid name.'
+    }
+    //cartNumber = '4242424242424242'
+    if (!payform.validateCardNumber(cartNumber)) {
+      return 'Invalid card number.'
+    }
+    const type = payform.parseCardType(cartNumber)
+    if (
+      ['visa', 'amex', 'mastercard', 'discover'].indexOf(type.toLowerCase() < 0)
+    ) {
+      return 'Invalid card type.'
+    }
+    if (!payform.validateCardCVC(cvv)) {
+      return 'Invalid secret Code.'
+    }
+    if (!payform.validateCardExpiry(dateM, dateY)) {
+      return 'Invalid expired date.'
+    }
+    return ''
+  }
+
+  isNumber(evt) {
+    const field = document.getElementById(evt.target.name)
+    const value = field.value
+    evt = evt ? evt : window.event
+    var charCode = evt.which ? evt.which : evt.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      if (field.value === undefined) {
+        field.value = ''
+      } else {
+        field.value = value.substring(0, value.length - 1)
+      }
+      return false
+    }
+    return true
+  }
+  centsToDollars(cents) {
+    const dollars = (cents / 100).toFixed(2)
+    return dollars
+  }
+
   render() {
     return (
       <div className="form-div">
@@ -50,9 +100,9 @@ class Checkout extends React.Component {
         <div className="form-header">
           <div className="totalArea">
             <span>Total Qty: {this.props.qty}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span>Total Price: ${this.props.price}</span>
+            <span>Total Price: ${this.centsToDollars(this.props.price)}</span>
           </div>
-          <div>
+          <div className="bigtable">
             <Table striped bordered hover>
               <thead className="checkoutTable">
                 <tr>
@@ -69,8 +119,10 @@ class Checkout extends React.Component {
                         <tr key={idx}>
                           <td>{el.info.name}</td>
                           <td>{el.qty}</td>
-                          <td>{el.info.price}</td>
-                          <td>{el.qty * el.info.price}</td>
+                          <td>${this.centsToDollars(el.info.price)}</td>
+                          <td>
+                            ${this.centsToDollars(el.qty * el.info.price)}
+                          </td>
                         </tr>
                       )
                     })

@@ -42,6 +42,7 @@ const AuthForm = props => {
             <input name="password" type="password" />
           </div>
         </p>
+        <button type="submit">{displayName}</button>
       </form>
       <form
         className="authFormStyles"
