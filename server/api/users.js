@@ -1,13 +1,14 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
+const secureRoutes = require('./securityHelpers')
 module.exports = router
 
-router.post('/', (req, res) => {
+router.post('/', secureRoutes, (req, res) => {
   req.session.orders = req.body
   req.session.save()
 })
 
-router.get('/', async (req, res, next) => {
+router.get('/', secureRoutes, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -21,7 +22,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/alluser', (req, res) => {
+router.get('/alluser', secureRoutes, (req, res) => {
   if (req.session.orders) {
     res.json(req.session.orders)
   }

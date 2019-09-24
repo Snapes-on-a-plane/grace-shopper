@@ -5,10 +5,11 @@ const {BubbleTea} = require('../db/models')
 module.exports = router
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
+const secureRoutes = require('./securityHelpers')
 
 // GET api/bubbles
 
-router.get('/', async (req, res, next) => {
+router.get('/', secureRoutes, async (req, res, next) => {
   try {
     const bubbles = await BubbleTea.findAll()
     res.json(bubbles)
@@ -18,7 +19,7 @@ router.get('/', async (req, res, next) => {
 })
 
 // GET api/bubbles/popular
-router.get('/popular', async (req, res, next) => {
+router.get('/popular', secureRoutes, async (req, res, next) => {
   try {
     const bubbles = await BubbleTea.findAll({
       where: {
@@ -34,7 +35,7 @@ router.get('/popular', async (req, res, next) => {
 })
 
 // GET api/bubbles/:bubbleId
-router.get('/:bubbleId', async (req, res, next) => {
+router.get('/:bubbleId', secureRoutes, async (req, res, next) => {
   try {
     const aBubble = await BubbleTea.findAll({
       where: {
