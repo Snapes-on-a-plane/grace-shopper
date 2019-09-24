@@ -150,7 +150,7 @@ class Menu extends Component {
             </h1>
             <div className="total">
               <h2>Total Price:</h2>
-              <p style={{fontSize: '20px'}}>${price}</p>
+              <p style={{fontSize: '20px'}}>${(price / 100).toFixed(2)}</p>
               <h2>Total Quantity:</h2>
               <p style={{fontSize: '20px'}}>{quantity} qty</p>
             </div>

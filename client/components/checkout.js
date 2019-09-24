@@ -5,7 +5,6 @@ import {Table} from 'react-bootstrap'
 import {getCheckOut} from '../store'
 import {isThisQuarter} from 'date-fns'
 
-
 class Checkout extends React.Component {
   constructor() {
     super()
@@ -14,6 +13,7 @@ class Checkout extends React.Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.isNumber = this.isNumber.bind(this)
+    this.centsToDollars = this.centsToDollars.bind(this)
   }
 
   async handleSubmit(event) {
@@ -88,6 +88,10 @@ class Checkout extends React.Component {
     }
     return true
   }
+  centsToDollars(cents) {
+    const dollars = (cents / 100).toFixed(2)
+    return dollars
+  }
 
   render() {
     return (
@@ -100,7 +104,7 @@ class Checkout extends React.Component {
         <div className="form-header">
           <div className="totalArea">
             <span>Total Qty: {this.props.qty}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span>Total Price: ${this.props.price}</span>
+            <span>Total Price: ${this.centsToDollars(this.props.price)}</span>
           </div>
           <div>
             <Table striped bordered hover>
@@ -119,8 +123,10 @@ class Checkout extends React.Component {
                         <tr key={idx}>
                           <td>{el.info.name}</td>
                           <td>{el.qty}</td>
-                          <td>{el.info.price}</td>
-                          <td>{el.qty * el.info.price}</td>
+                          <td>${this.centsToDollars(el.info.price)}</td>
+                          <td>
+                            ${this.centsToDollars(el.qty * el.info.price)}
+                          </td>
                         </tr>
                       )
                     })
