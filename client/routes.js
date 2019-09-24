@@ -9,7 +9,8 @@ import {
   HomePage,
   PageNotFound,
   Menu,
-  Checkout
+  Checkout,
+  SingleBubbleteaDisplay
 } from './components'
 import {me} from './store'
 
@@ -32,6 +33,7 @@ class Routes extends Component {
         <Route path="/menu" component={Menu} />
         {/* KL temp for test */}
         <Route path="/checkout" component={Checkout} />
+        <Route path="/bubbletea/:bubbleId" component={SingleBubbleteaDisplay} />
 
         {isLoggedIn && (
           <Switch>

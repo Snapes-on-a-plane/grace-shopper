@@ -41,7 +41,6 @@ const SingleBubble = props => {
     const dollars = (cents / 100).toFixed(2)
     return dollars
   }
-
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -94,7 +93,7 @@ const SingleBubble = props => {
         <Button size="small" color="primary">
           Learn More{' '}
         </Button>
-        <Link to="/singleBubbleteaDisplay"> to one bubble tea</Link>
+        <Link to={`/bubbletea/${bubble.id}`}> Learn More</Link>
       </CardActions>
     </Card>
   )

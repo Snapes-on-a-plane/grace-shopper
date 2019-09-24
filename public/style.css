@@ -107,7 +107,11 @@ form div {
 }
 
 .authFormStyles {
-  border: 5px solid red;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  margin: 100px;
 }
 
 /* // KL added */

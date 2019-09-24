@@ -1,18 +1,10 @@
 const router = require('express').Router()
 const {Payment, Order, Order_BubbleTea} = require('../db/models')
-const checkAuth = require('./securityHelpers')
 
 module.exports = router
 
 // GET api/checkout
 router.get('/', async (req, res, next) => {
-  //   if (err) {
-  //     res.sendStatus(403)
-  //   } else {
-  //     const checkout = await Payment.findAll()
-  //     res.json(checkout, authData)
-  //   }
-  // })
   try {
     const checkout = await Payment.findAll()
     res.json(checkout)

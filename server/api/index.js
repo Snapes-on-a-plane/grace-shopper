@@ -4,7 +4,6 @@ module.exports = router
 const secureRoutes = require('./securityHelpers')
 router.use(secureRoutes)
 
-//router.use(jwtCheck)
 router.use('/users', require('./users'))
 
 // NL: adding routes to serve up the products data.

@@ -26,30 +26,7 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <p>
-          <div>
-            <label htmlFor="email">
-              <small>Email</small>
-            </label>
-            <input name="email" type="text" />
-          </div>
-
-          <div>
-            <label htmlFor="password">
-              <small>Password</small>
-            </label>
-            <input name="password" type="password" />
-          </div>
-        </p>
-        <button type="submit">{displayName}</button>
-      </form>
-      <form
-        className="authFormStyles"
-        //className={classes.container} noValidate autoComplete="off"
-        onSubmit={handleSubmit}
-        name={name}
-      >
+      <form className="authFormStyles">
         <label htmlFor="email">Email</label>
         <TextField
           id="outlined-name"
@@ -80,24 +57,6 @@ const AuthForm = props => {
         </Button>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      {/* <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-   <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form> */}
       <a href="/auth/google">{displayName} with Google</a>
     </div>
   )
