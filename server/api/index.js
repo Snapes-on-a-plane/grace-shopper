@@ -1,8 +1,8 @@
 const router = require('express').Router()
 module.exports = router
 
-const secureRoutes = require('./securityHelpers')
-router.use(secureRoutes)
+// const secureRoutes = require('./securityHelpers')
+// router.use(secureRoutes)
 
 router.use('/users', require('./users'))
 
