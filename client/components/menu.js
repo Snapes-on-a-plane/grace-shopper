@@ -22,13 +22,10 @@ class Menu extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    //console.log('component did update')
-    //console.log(prevState, this.state.price)
     if (
       this.state.arrItem.length !== prevState.arrItem.length &&
       this.state.minusPrice > 0
     ) {
-      //console.log('hello', this.state)
       let minusp = this.state.minusPrice
       let minusq = this.state.minusQuantity
       this.setState({
@@ -61,7 +58,9 @@ class Menu extends Component {
   }
 
   update = (item, qty) => {
-    this.setState({arrItem: [...this.state.arrItem, {info: item, qty: qty}]})
+    if (qty) {
+      this.setState({arrItem: [...this.state.arrItem, {info: item, qty: qty}]})
+    }
   }
 
   remove = i => {
@@ -78,7 +77,6 @@ class Menu extends Component {
         minusQuantity
       }
     })
-    //console.log(this.state)
   }
 
   calPriceQty = (price, qty) => {
@@ -92,12 +90,6 @@ class Menu extends Component {
   }
 
   OrderCheckout() {
-    console.log(
-      'menu state',
-      this.state.arrItem,
-      this.state.price,
-      this.state.quantity
-    )
     this.props.orderCheckout(
       this.state.arrItem,
       this.state.price,
@@ -109,7 +101,6 @@ class Menu extends Component {
   render() {
     const {arrItem} = this.state
     const {price, quantity} = this.state
-
     return (
       <div>
         <div className="all_bubble_styling">{this.renderMenu()}</div>
@@ -122,7 +113,10 @@ class Menu extends Component {
                       <strong className="mr-auto">{bubble.info.name}</strong>
                     </Toast.Header>
                     <Toast.Body>
-                      Price: ${bubble.info.price} Qty: {bubble.qty} qty
+                      Price: ${(bubble.info.price / 100 * bubble.qty).toFixed(
+                        2
+                      )}{' '}
+                      Qty: {bubble.qty} qty
                     </Toast.Body>
                     <button
                       onClick={() => this.remove(i)}
@@ -173,8 +167,6 @@ class Menu extends Component {
     )
   }
 }
-
-//export default Menu
 
 const mapStateToProps = state => {
   return {

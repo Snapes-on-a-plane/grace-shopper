@@ -14,6 +14,8 @@ import {
 } from './components'
 import {me} from './store'
 
+import {Elements, StripeProvider} from 'react-stripe-elements'
+
 /**
  * COMPONENT
  */
@@ -34,6 +36,14 @@ class Routes extends Component {
         {/* KL temp for test */}
         <Route path="/checkout" component={Checkout} />
         <Route path="/bubbletea/:bubbleId" component={SingleBubbleteaDisplay} />
+        <StripeProvider apiKey="pk_test_RilChNllCNG1loEuMTohS9w400Bw64boF1">
+          <div className="example">
+            <Elements>
+              <Route path="/checkout" component={Checkout} />
+            </Elements>
+          </div>
+        </StripeProvider>
+
 
         {isLoggedIn && (
           <Switch>

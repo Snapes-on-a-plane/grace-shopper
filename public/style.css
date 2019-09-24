@@ -210,9 +210,24 @@ select {
   padding-bottom: 10px;
 }
 
+.bigtable {
+  display: flex;
+  justify-content: space-around;
+}
+/* .form-header:first-child{
+  flex: 40%;
+  background: #73AD21;
+}
 .errorMsg {
   font-size: 20px;
   color: darkgreen;
 }
 
+.btn-checkout {
+  background-color: #45a049;
+  height: 40px;
+  width: 200px;
+  border-radius: 10px;
+  color: white;
+}
 /* end of KL */

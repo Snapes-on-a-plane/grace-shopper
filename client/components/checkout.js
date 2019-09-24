@@ -1,39 +1,36 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import payform from 'payform'
 import {Table} from 'react-bootstrap'
 import {getCheckOut} from '../store'
 import {isThisQuarter} from 'date-fns'
+import {CardElement, injectStripe} from 'react-stripe-elements'
 
 class Checkout extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       errorMsg: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.submit = this.submit.bind(this)
     this.isNumber = this.isNumber.bind(this)
     this.centsToDollars = this.centsToDollars.bind(this)
   }
 
-  async handleSubmit(event) {
-    event.preventDefault()
-    // const ret = this.validate(event);
-    // console.log("ret", ret)
-    // if (ret.length  > 0){
-    //   console.log("in h")
-    //    this.setState({errorMsg: ret});
+  async submit() {
+    this.props.stripe.createToken({name: 'Kate'}).then(token => {
+      if (token.error !== undefined && token.error.message !== undefined) {
+        this.setState({errorMsg: 'Error: ' + token.error.message})
+      } else {
+        this.handleSubmit(token.id)
+        this.setState({errorMsg: 'Order Complete!'})
+      }
+    })
+  }
 
-    //    return false;
-    // }
-
-    const selectedPayment = {
-      name: 'kate',
-      paymentType: 'visa',
-      cartNumber: '232',
-      cvv: '234',
-      expireDate: '2020-10-10'
-    }
+  async handleSubmit(id) {
+    console.log('token id good', id)
+    const selectedPayment = {tokenId: id}
     await this.props.getCheckOut({
       selectedPayment,
       orderId: this.props.orderId,
@@ -99,14 +96,13 @@ class Checkout extends React.Component {
         <h2>
           Credit Card Checkout:{' '}
           <img src="./images/cuteBubble.png" alt="" width="50" height="50px" />
-          <p className="errorMsg">{this.state.errorMsg}</p>
         </h2>
         <div className="form-header">
           <div className="totalArea">
             <span>Total Qty: {this.props.qty}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span>Total Price: ${this.centsToDollars(this.props.price)}</span>
           </div>
-          <div>
+          <div className="bigtable">
             <Table striped bordered hover>
               <thead className="checkoutTable">
                 <tr>
@@ -136,105 +132,13 @@ class Checkout extends React.Component {
           </div>
         </div>
 
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="name" text-align="right">
-            CardHolder's Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="CardHolder's name.."
-          />
-          <label htmlFor="cartNumber" text-align="right">
-            Credit Card Number
-          </label>
-          <input
-            type="text"
-            id="cartNumber"
-            name="cartNumber"
-            placeholder="Credit Card number.."
-            onKeyPress={this.isNumber}
-          />
-          <label htmlFor="cvv">Secret Code(CVV/CVC/CID)</label>
-          <input
-            type="text"
-            id="cvv"
-            name="cvv"
-            placeholder="CVV/CVC/CID number.."
-            onKeyPress={this.isNumber}
-          />
-          <label htmlFor="expiredDate">Expired Date</label>
-          <div className="form-div-select">
-            <select name="expiredDateMonth" id="expiredDateMonth">
-              <option value="01">January</option>
-              <option value="02">February </option>
-              <option value="03">March</option>
-              <option value="04">April</option>
-              <option value="05">May</option>
-              <option value="06">June</option>
-              <option value="07">July</option>
-              <option value="08">August</option>
-              <option value="09" selected>
-                September
-              </option>
-              <option value="10">October</option>
-              <option value="11">November</option>
-              <option value="12">December</option>
-            </select>
-            <select name="expiredDateYear" id="expiredDateYear">
-              <option value="10"> 2010</option>
-              <option value="11"> 2011</option>
-              <option value="12"> 2012</option>
-              <option value="13"> 2013</option>
-              <option value="14"> 2014</option>
-              <option value="15"> 2015</option>
-              <option value="16"> 2016</option>
-              <option value="17"> 2017</option>
-              <option value="18"> 2018</option>
-              <option value="19" selected>
-                {' '}
-                2019
-              </option>
-              <option value="20"> 2020</option>
-              <option value="21"> 2021</option>
-              <option value="22"> 2022</option>
-              <option value="23"> 2023</option>
-              <option value="24"> 2024</option>
-              <option value="25"> 2025</option>
-              <option value="26"> 2026</option>
-              <option value="27"> 2027</option>
-              <option value="28"> 2028</option>
-              <option value="29"> 2029</option>
-              <option value="30"> 2030</option>
-            </select>
-          </div>
-          <div className="form-div-img">
-            <label htmlFor="CartType">Credit Card Type &nbsp;&nbsp;</label>
-            <img src="./images/visa.png" alt="" width="60" height="30" />&nbsp;
-            <img
-              src="./images/mastercard.png"
-              alt=""
-              width="60"
-              height="30"
-            />&nbsp;
-            <img
-              src="./images/discover.jpg"
-              alt=""
-              width="60"
-              height="30"
-            />&nbsp;
-            <img
-              src="./images/americanexpress.png"
-              alt=""
-              width="60"
-              height="30"
-            />&nbsp;
-          </div>
-          <br />
-          <input type="submit" value="Place Order" /> &nbsp;&nbsp;
-          {/* <input type="button" value="Cancel" /> */}
-        </form>
+        <div className="checkout">
+          <p className="errorMsg">{this.state.errorMsg}</p>
+          <CardElement />
+          <button onClick={this.submit} className="btn-checkout">
+            Place Order
+          </button>
+        </div>
       </div>
     )
   }
@@ -256,4 +160,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  injectStripe(Checkout)
+)

@@ -16,6 +16,7 @@ router.get('/', async (req, res, next) => {
 router.post('/add', async (req, res, next) => {
   try {
     // 1) save to order table
+    console.log('in 1')
     const order = await Order.create({
       totalPrice: req.body.price,
       totalQuantity: req.body.qty,
@@ -25,8 +26,11 @@ router.post('/add', async (req, res, next) => {
       throw new Error('order failed.')
     }
     let values = []
+    let orderId = 0
+    console.log('in 2')
     req.body.arrItem.map(el => {
       let line = {}
+      orderId = order.id
       line.orderId = order.id
       line.bubbleTeaId = el.info.id
       line.bubbleTeaPrice = el.info.price
@@ -34,14 +38,24 @@ router.post('/add', async (req, res, next) => {
       values.push(line)
       return line
     })
+    console.log('in 3')
     // 2) save to Order_BubbleTea table
     const order_bubbleTea = Order_BubbleTea.bulkCreate(values, {
       returning: true
     })
 
     // 3) save to payment
-    //const checkout = await Payment.create(req.body)
-    //res.json(checkout)
+    console.log('in here', order_bubbleTea)
+    if (order_bubbleTea) {
+      console.log('id', req.body.selectedPayment.id)
+      const payment = {
+        tokenId: req.body.selectedPayment.id,
+        userId: req.session.userId,
+        orderId: orderId
+      }
+      const checkout = await Payment.create(payment)
+      res.json(checkout)
+    }
   } catch (err) {
     next(err)
   }
