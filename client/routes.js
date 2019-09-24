@@ -33,8 +33,7 @@ class Routes extends Component {
         {/* NL: Modifying routes to reflect our website schema */}
         <Route exact path="/" component={HomePage} />
         <Route path="/menu" component={Menu} />
-        {/* KL temp for test */}
-        {/* <Route path="/checkout" component={Checkout} /> */}
+        {/* KL */}
         <Route path="/bubbletea/:bubbleId" component={SingleBubbleteaDisplay} />
         <StripeProvider apiKey="pk_test_RilChNllCNG1loEuMTohS9w400Bw64boF1">
           <div className="example">
