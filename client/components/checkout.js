@@ -54,9 +54,9 @@ class Checkout extends React.Component {
         <div className="form-header">
           <div className="totalArea">
             <span>Total Qty: {this.props.qty}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span>Total Price: ${this.props.price}</span>
+            <span>Total Price: ${(this.props.price / 100).toFixed(2)}</span>
           </div>
-          <div>
+          <div className="bigtable">
             <Table striped bordered hover>
               <thead className="checkoutTable">
                 <tr>
@@ -73,8 +73,8 @@ class Checkout extends React.Component {
                         <tr key={idx}>
                           <td>{el.info.name}</td>
                           <td>{el.qty}</td>
-                          <td>{el.info.price}</td>
-                          <td>{el.qty * el.info.price}</td>
+                          <td>${(el.info.price / 100).toFixed(2)}</td>
+                          <td>${(el.qty * el.info.price / 100).toFixed(2)}</td>
                         </tr>
                       )
                     })

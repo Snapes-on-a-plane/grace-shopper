@@ -11,7 +11,6 @@ const Op = Sequelize.Op
 router.get('/', async (req, res, next) => {
   try {
     const bubbles = await BubbleTea.findAll()
-    //console.log(bubbles)
     res.json(bubbles)
   } catch (err) {
     next(err)

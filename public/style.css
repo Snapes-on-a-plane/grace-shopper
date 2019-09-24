@@ -205,6 +205,11 @@ select {
   margin-bottom: 10px;
   padding-bottom: 10px;
 }
+
+.bigtable {
+  display: flex;
+  justify-content: space-around;
+}
 /* .form-header:first-child{
   flex: 40%;
   background: #73AD21;
