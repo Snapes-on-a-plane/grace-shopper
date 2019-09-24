@@ -1,17 +1,14 @@
 // NL: This file will have all the routes related to Bubble data model.
 
 const router = require('express').Router()
-const jwt = require('jsonwebtoken')
 const {BubbleTea} = require('../db/models')
-const checkAuth = require('./securityHelpers')
 module.exports = router
-
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 
 // GET api/bubbles
 
-router.get('/', checkAuth, async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const bubbles = await BubbleTea.findAll()
     res.json(bubbles)

@@ -35,6 +35,10 @@ const SingleBubble = props => {
   const Qty = e => {
     qty = e.target.value
   }
+  const centsToDollars = cents => {
+    const dollars = (cents / 100).toFixed(2)
+    return dollars
+  }
 
   return (
     <Card className={classes.card}>
@@ -60,7 +64,7 @@ const SingleBubble = props => {
             color="textSecondary"
             component="p"
           >
-            Tea Price: ${bubble.price}
+            Tea Price: ${centsToDollars(bubble.price)}
           </Typography>
           <Typography
             style={{marginTop: '4px'}}
