@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Table} from 'react-bootstrap'
 import {getCheckOut} from '../store'
-import {isThisQuarter} from 'date-fns'
 import {CardElement, injectStripe} from 'react-stripe-elements'
 
 class Checkout extends React.Component {
