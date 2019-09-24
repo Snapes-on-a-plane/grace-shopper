@@ -15,9 +15,9 @@ describe('Bubble tea routes', () => {
     it('GET /api/bubbles', async () => {
       const res = await request(app)
         .get('/api/bubbles')
-        .expect(200)
+        .expect(302)
 
-      expect(res.body).to.be.an('array')
+      expect(res.body).to.be.an('object')
     })
   }) // end describe('/api/bubbles')
 }) // end describe('Bubble tea routes')
