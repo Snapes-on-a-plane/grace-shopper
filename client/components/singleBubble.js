@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import {gotOrderItem, gotQty} from '../store/order'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
+import {SingleBubbleteaDisplay} from './singleBubbleteaDisplay'
 
 const useStyles = makeStyles({
   card: {
@@ -90,8 +92,9 @@ const SingleBubble = props => {
           Add to Order
         </Button>
         <Button size="small" color="primary">
-          Learn More
+          Learn More{' '}
         </Button>
+        <Link to="/singleBubbleteaDisplay"> to one bubble tea</Link>
       </CardActions>
     </Card>
   )
