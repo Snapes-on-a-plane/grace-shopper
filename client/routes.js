@@ -34,7 +34,6 @@ class Routes extends Component {
         <Route exact path="/" component={HomePage} />
         <Route path="/menu" component={Menu} />
         {/* KL temp for test */}
-        <Route path="/checkout" component={Checkout} />
         <Route path="/bubbletea/:bubbleId" component={SingleBubbleteaDisplay} />
         <StripeProvider apiKey="pk_test_RilChNllCNG1loEuMTohS9w400Bw64boF1">
           <div className="example">
@@ -43,7 +42,6 @@ class Routes extends Component {
             </Elements>
           </div>
         </StripeProvider>
-
 
         {isLoggedIn && (
           <Switch>
