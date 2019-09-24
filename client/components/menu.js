@@ -18,7 +18,9 @@ class Menu extends Component {
     this.OrderCheckout = this.OrderCheckout.bind(this)
   }
   async componentDidMount() {
+    await this.props.displayAllBubbles()
     const {data} = await axios.get('/api/users/alluser')
+    console.log(data)
     const qty = data.reduce((acc, item) => {
       acc += Number(item.qty)
       return acc
@@ -28,7 +30,6 @@ class Menu extends Component {
       return acc
     }, 0)
     this.setState({arrItem: data, price: newPrice, quantity: qty})
-    await this.props.displayAllBubbles()
   }
 
   componentDidUpdate(prevProps, prevState) {

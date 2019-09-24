@@ -24,6 +24,7 @@ router.get('/', async (req, res, next) => {
 
 //GET REQUEST FOR /USERS/ALLUSER
 router.get('/alluser', (req, res) => {
+  console.log(req.session)
   if (req.session) {
     res.json(req.session.orders)
   }
