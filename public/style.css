@@ -214,6 +214,24 @@ select {
   display: flex;
   justify-content: space-around;
 }
+
+.learnMore {
+  border-radius: 10px;
+  padding: 5px;
+  color: lightcoral;
+}
+
+.btnClass {
+  align-items: baseline !important;
+}
+
+/* .addToOrderBtn{
+  height: 34px;
+  border: 3px solid darkgray;
+  border-radius: 10px;
+  background-color: steelblue;
+  color: white;
+} */
 /* .form-header:first-child{
   flex: 40%;
   background: #73AD21;

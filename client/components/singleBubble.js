@@ -90,14 +90,18 @@ const SingleBubble = props => {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button onClick={() => SendData(bubble)} size="small" color="primary">
+      <CardActions className="btnClass">
+        <Button
+          className="addToOrderBtn"
+          onClick={() => SendData(bubble)}
+          size="small"
+        >
           Add to Order
         </Button>
-        <Button size="small" color="primary">
-          Learn More{' '}
-        </Button>
-        <Link to={`/bubbletea/${bubble.id}`}> Learn More</Link>
+        <Link className="learnMore" to={`/bubbletea/${bubble.id}`}>
+          {' '}
+          Learn More
+        </Link>
       </CardActions>
     </Card>
   )
