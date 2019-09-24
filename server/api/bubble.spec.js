@@ -4,7 +4,7 @@ const {expect} = require('chai')
 const request = require('supertest')
 const db = require('../db')
 const app = require('../index')
-const Bubble = db.model('bubble')
+const BubbleTea = db.model('bubbleTea')
 
 describe('Bubble tea routes', () => {
   beforeEach(() => {
@@ -14,10 +14,10 @@ describe('Bubble tea routes', () => {
   describe('/api/bubbles/', () => {
     it('GET /api/bubbles', async () => {
       const res = await request(app)
-        .get('/api/users')
+        .get('/api/bubbles')
         .expect(200)
 
       expect(res.body).to.be.an('array')
     })
-  }) // end describe('/api/users')
-}) // end describe('User routes')
+  }) // end describe('/api/bubbles')
+}) // end describe('Bubble tea routes')

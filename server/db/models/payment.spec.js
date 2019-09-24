@@ -40,7 +40,7 @@ describe('Payment model', () => {
       try {
         await payment.validate()
         throw Error(
-          "validation was successful but should have failed if paymentType is not in ['VISA', 'MASTERCARD', 'DISCOVER', 'AmericanExpress']"
+          "validation was successful but should have failed if paymentType is not in ['visa', 'mastercard', 'discover', 'amex']"
         )
       } catch (err) {
         expect(err.message).to.contain('Validation error')
@@ -103,32 +103,64 @@ describe('Payment model', () => {
       }
     })
 
-    // expiredDate
-    it('requires `expiredDate`', async () => {
+    // month
+    it('requires `expiredMonth`', async () => {
       const payment = Payment.build()
       try {
         await payment.validate()
         throw Error(
-          'validation was successful but should have failed without `expiredDate`'
+          'validation was successful but should have failed without `expiredMonth`'
         )
       } catch (err) {
-        expect(err.message).to.contain('expiredDate cannot be null')
+        expect(err.message).to.contain('expiredMonth cannot be null')
       }
     })
 
-    it('requires `expiredDate` to be in the system required date range', async () => {
+
+    it('requires `expiredMonth` to not be an empty string', async () => {
       const payment = Payment.build({
-        expiredDate: new Date('October 13, 2010 11:13:00') //new Date("October 13, 1000 11:13:00")
+        expiredMonth: ''
       })
 
       try {
         await payment.validate()
         throw Error(
-          'validation was successful but should have failed if expiredDate is not in the system required date range'
+          'validation was successful but should have failed if expiredMonth is an empty string'
         )
       } catch (err) {
         expect(err.message).to.contain('Validation error')
       }
     })
+    // end month
+
+    // year
+    it('requires `expiredYear`', async () => {
+      const payment = Payment.build()
+      try {
+        await payment.validate()
+        throw Error(
+          'validation was successful but should have failed without `expiredYear`'
+        )
+      } catch (err) {
+        expect(err.message).to.contain('expiredYear cannot be null')
+      }
+    })
+
+    it('requires `expiredYear` to not be an empty string', async () => {
+      const payment = Payment.build({
+        expiredYear: ''
+      })
+
+      try {
+        await payment.validate()
+        throw Error(
+          'validation was successful but should have failed if expiredYear is an empty string'
+        )
+      } catch (err) {
+        expect(err.message).to.contain('Validation error')
+      }
+    })
+    
+
   })
 })

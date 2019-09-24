@@ -17,7 +17,6 @@ const getOrder = (order, totalPrice, totalQty) => ({
   totalQty
 })
 export const gotOrder = (order, price, qty) => dispatch => {
-  console.log('order: ', order)
   dispatch(getOrder(order, price, qty))
 }
 // payment
@@ -45,10 +44,11 @@ const gotCheckOut = selectedPayment => ({
   selectedPayment
 })
 
-export const getCheckOut = selectedPayment => {
+export const getCheckOut = order => {
   return async dispath => {
     try {
-      const res = await axios.post(`/api/checkout/add`, selectedPayment)
+      console.log('order', order)
+      const res = await axios.post(`/api/checkout/add`, order)
       dispath(gotCheckOut(res))
     } catch (err) {
       console.log('Checkout error:', err)

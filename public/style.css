@@ -214,8 +214,9 @@ select {
   flex: 40%;
   background: #73AD21;
 }
-.form-header:nth-child(2){
-  flex: 40%;
-  background: blanchedalmond;
-} */
+.errorMsg {
+  font-size: 20px;
+  color: darkgreen;
+}
+
 /* end of KL */
