@@ -210,6 +210,15 @@ select {
   display: flex;
   justify-content: space-around;
 }
+
+.btn-checkout {
+  background-color: #45a049;
+  height: 40px;
+  width: 200px;
+  border-radius: 10px;
+  color: white;
+}
+
 /* .form-header:first-child{
   flex: 40%;
   background: #73AD21;
@@ -219,11 +228,5 @@ select {
   color: darkgreen;
 }
 
-.btn-checkout {
-  background-color: #45a049;
-  height: 40px;
-  width: 200px;
-  border-radius: 10px;
-  color: white;
-}
+
 /* end of KL */

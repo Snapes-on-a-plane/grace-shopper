@@ -48,7 +48,7 @@ export const getCheckOut = order => {
   return async dispath => {
     try {
       console.log('order', order)
-      const res = await axios.post(`/api/checkout/add`, order)
+      const res = await axios.post(`/api/checkout`, order)
       dispath(gotCheckOut(res))
     } catch (err) {
       console.log('Checkout error:', err)
