@@ -3,6 +3,7 @@ import history from '../history'
 
 const GET_ALL_BUBBLES = 'GET_ALL_BUBBLES'
 const GET_POPULAR_BUBBLES = 'GET_POPULAR_BUBBLES'
+const GET_SINGLE_BUBBLE = 'GET_SINGLE_BUBBLE'
 
 const getAllBubbles = bubbles => ({
   type: GET_ALL_BUBBLES,
@@ -13,7 +14,13 @@ const getPopularBubbles = bubbles => ({
   bubbles
 })
 
+const getSingleBubble = bubble => ({
+  type: GET_SINGLE_BUBBLE,
+  bubble
+})
+
 const initialState = {
+  bubble: {},
   bubbles: [],
   popularBubbles: []
 }
@@ -36,6 +43,14 @@ export const displayPopularBubbles = () => async dispatch => {
   }
 }
 
+export const displaySingleBubble = () => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/bubbles/${id}`)
+    dispatch(getSingleBubble(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_BUBBLES:
@@ -47,6 +62,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         popularBubbles: action.bubbles
+      }
+    case GET_SINGLE_BUBBLE:
+      return {
+        ...state,
+        bubble: bubble
       }
     default:
       return state

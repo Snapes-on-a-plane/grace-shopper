@@ -1,11 +1,11 @@
 const router = require('express').Router()
 const {Payment, Order, Order_BubbleTea} = require('../db/models')
-const checkAuth = require('./securityHelpers')
 
 module.exports = router
 
 // GET api/checkout
 router.get('/', async (req, res, next) => {
+
   jwt.verify(req.token, 'secretkey', async (err, authData) => {
     if (err) {
       res.sendStatus(403)

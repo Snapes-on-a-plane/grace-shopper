@@ -4,7 +4,7 @@ import SingleBubble from './singleBubble'
 import {displayAllBubbles, gotOrder} from '../store'
 import {Toast} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-
+import axios from 'axios'
 class Menu extends Component {
   constructor() {
     super()
@@ -18,6 +18,16 @@ class Menu extends Component {
     this.OrderCheckout = this.OrderCheckout.bind(this)
   }
   async componentDidMount() {
+    const {data} = await axios.get('/api/users/alluser')
+    const qty = data.reduce((acc, item) => {
+      acc += Number(item.qty)
+      return acc
+    }, 0)
+    const newPrice = data.reduce((acc, item) => {
+      acc += item.info.price * Number(item.qty)
+      return acc
+    }, 0)
+    this.setState({arrItem: data, price: newPrice, quantity: qty})
     await this.props.displayAllBubbles()
   }
 
@@ -95,6 +105,7 @@ class Menu extends Component {
       this.state.price,
       this.state.quantity
     )
+    axios.post('/api/users', this.state.arrItem)
     this.setState({arrItem: [], price: 0, quantity: 0})
   }
 

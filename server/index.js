@@ -119,9 +119,6 @@ const createApp = () => {
   })
 }
 
-// app.get('/', (req, res) => {
-//   console.log('app get', req.session)
-// })
 const startListening = () => {
   // start listening (and create a 'server' object representing our server)
   const server = app.listen(PORT, () =>
