@@ -11,7 +11,7 @@ const Op = Sequelize.Op
 
 // GET api/bubbles
 
-router.get('/', checkAuth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const bubbles = await BubbleTea.findAll()
     res.json(bubbles)
