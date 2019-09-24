@@ -106,7 +106,7 @@ class Checkout extends React.Component {
             <span>Total Qty: {this.props.qty}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span>Total Price: ${this.centsToDollars(this.props.price)}</span>
           </div>
-          <div>
+          <div className="bigtable">
             <Table striped bordered hover>
               <thead className="checkoutTable">
                 <tr>
