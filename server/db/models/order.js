@@ -2,7 +2,7 @@
 
 const Sequelize = require('sequelize')
 const db = require('../db')
-const Order_BubbleTea = require('./Order_BubbleTea')
+//const Order_BubbleTea = require('./Order_BubbleTea')
 const Op = Sequelize.Op
 
 const Order = db.define('order', {
