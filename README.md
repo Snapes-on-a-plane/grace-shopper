@@ -1,6 +1,8 @@
 
 Tearrifc
 An e commerce site to buy bubble tea
+
+See the deployed site at : https://teariffic.herokuapp.com/
 This document describes our team social contract for this project*
 Reference Establishing Norms
 Roles
